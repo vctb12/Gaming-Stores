@@ -1,12 +1,9 @@
-// Prisma schema for future database integration.
-// Currently the app uses seed data in src/lib/data.ts for the MVP.
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -15,7 +12,7 @@ model Store {
   name                String
   slug                String    @unique
   website             String?
-  sources             String[]
+  sources             Json
   rating              Float     @default(0)
   reviewCount         Int       @default(0)
   warrantyMonths      Int       @default(0)
@@ -41,34 +38,34 @@ model Product {
 }
 
 model Listing {
-  id             String   @id @default(cuid())
+  id             String         @id @default(cuid())
   productId      String
   storeId        String
   price          Int
-  currency       String   @default("AED")
-  inStock        Boolean  @default(true)
+  currency       String         @default("AED")
+  inStock        Boolean        @default(true)
   url            String?
   source         String
   warrantyMonths Int
-  shippingCost   Int      @default(0)
-  shippingDays   Int      @default(1)
+  shippingCost   Int            @default(0)
+  shippingDays   Int            @default(1)
   lastUpdated    DateTime
-  product        Product  @relation(fields: [productId], references: [id])
-  store          Store    @relation(fields: [storeId], references: [id])
+  product        Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  store          Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
   priceHistory   PriceHistory[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 
   @@index([productId])
   @@index([storeId])
 }
 
 model PriceHistory {
-  id        String   @id @default(cuid())
-  listingId String
-  price     Int
+  id         String   @id @default(cuid())
+  listingId  String
+  price      Int
   recordedAt DateTime @default(now())
-  listing   Listing  @relation(fields: [listingId], references: [id])
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
 
   @@index([listingId, recordedAt])
 }

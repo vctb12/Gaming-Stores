@@ -3,9 +3,9 @@ import {
   formatPrice,
   getComparisonHighlights,
   getLowestPrice,
-  getProductBySlug,
   sortListings,
 } from "@/lib/comparison";
+import { getProductBySlug } from "@/lib/db/queries";
 import type { SortOption } from "@/lib/types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -34,7 +34,7 @@ export default async function ProductPage({
   const { sort: sortParam } = await searchParams;
   const sort: SortOption = isSortOption(sortParam) ? sortParam : "cheapest";
 
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
   const highlights = getComparisonHighlights(product.listings);
