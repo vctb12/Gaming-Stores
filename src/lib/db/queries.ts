@@ -1,14 +1,31 @@
 import { mapListing, mapProduct, mapStore } from "@/lib/db/mappers";
 import { prisma } from "@/lib/prisma";
+import { computePriceChange } from "@/lib/price-change";
 import type { ListingWithStore, ProductWithListings, Store } from "@/lib/types";
 
 const productWithListingsInclude = {
   listings: {
     include: {
       store: true,
+      priceHistory: {
+        orderBy: { recordedAt: "desc" as const },
+        take: 2,
+      },
     },
   },
 } as const;
+
+function toListingWithStore(
+  listing: Awaited<
+    ReturnType<typeof prisma.product.findMany<{ include: typeof productWithListingsInclude }>>
+  >[number]["listings"][number],
+): ListingWithStore {
+  return {
+    ...mapListing(listing),
+    store: mapStore(listing.store),
+    priceChange: computePriceChange(listing.price, listing.priceHistory),
+  };
+}
 
 function toProductWithListings(
   product: Awaited<
@@ -17,10 +34,7 @@ function toProductWithListings(
 ): ProductWithListings {
   return {
     ...mapProduct(product),
-    listings: product.listings.map((listing) => ({
-      ...mapListing(listing),
-      store: mapStore(listing.store),
-    })),
+    listings: product.listings.map(toListingWithStore),
   };
 }
 
