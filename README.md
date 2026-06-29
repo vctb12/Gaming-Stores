@@ -6,9 +6,24 @@ Instead of comparing flights, users compare **store offers** side by side: cheap
 
 ## Live site
 
-The app is deployed on **Vercel** (not GitHub Pages). Use your Vercel project URL — e.g. `https://gaming-stores-*.vercel.app`.
+**App (Vercel):** https://gaming-stores.vercel.app
 
-> GitHub Pages (`https://vctb12.github.io/Gaming-Stores/`) only renders this README. To avoid confusion, disable it: **GitHub repo → Settings → Pages → Source: None**.
+| Page | URL |
+|------|-----|
+| Homepage | https://gaming-stores.vercel.app |
+| Admin | https://gaming-stores.vercel.app/admin |
+
+Do **not** use GitHub Pages for the app — it only shows this README:
+
+https://vctb12.github.io/Gaming-Stores/
+
+### Disable GitHub Pages (one-time, 30 seconds)
+
+1. Open https://github.com/vctb12/Gaming-Stores/settings/pages
+2. Under **Build and deployment → Source**, choose **None**
+3. Click **Save**
+
+This stops the confusing README site from appearing at `github.io`.
 
 ## What it does
 
