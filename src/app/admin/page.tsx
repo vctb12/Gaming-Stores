@@ -45,9 +45,8 @@ export default async function AdminDashboardPage() {
         <div className="mt-8 rounded-2xl border border-dashed border-white/10 p-8">
           <h2 className="text-lg font-semibold text-white">Getting started</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
-            Use the sidebar to manage stores, products, and listings. Store
-            management, product catalog, and listing editors will be added in
-            upcoming PRs — one feature at a time.
+            Use the sidebar to manage stores, products, and listings. Add stores
+            and products first, then create listings to connect them with prices.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">

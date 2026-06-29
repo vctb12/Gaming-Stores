@@ -4,6 +4,12 @@ A **product price comparison marketplace** for gaming gear in the UAE — think 
 
 Instead of comparing flights, users compare **store offers** side by side: cheapest price, best warranty, top reviews, and fastest delivery.
 
+## Live site
+
+The app is deployed on **Vercel** (not GitHub Pages). Use your Vercel project URL — e.g. `https://gaming-stores-*.vercel.app`.
+
+> GitHub Pages (`https://vctb12.github.io/Gaming-Stores/`) only renders this README. To avoid confusion, disable it: **GitHub repo → Settings → Pages → Source: None**.
+
 ## What it does
 
 1. **Lists stores & sellers** — websites, Instagram shops, WhatsApp sellers, Facebook pages, TikTok stores
@@ -28,16 +34,19 @@ Each listing shows badges like **Cheapest**, **Best warranty**, **Top rated**, a
 - **Next.js 16** (App Router) — SEO-friendly product pages
 - **TypeScript** — type-safe data models
 - **Tailwind CSS** — UI styling
-- **Prisma** (schema ready) — PostgreSQL for production data
+- **Prisma** + **PostgreSQL** (Supabase on Vercel) — production data
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev
+cp .env.example .env.local   # add POSTGRES_URL values
+npm run dev                  # migrates, seeds, starts dev server
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+To re-seed sample data locally: `npm run db:seed`
 
 ### Key routes
 
@@ -47,6 +56,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | `/products` | Browse and search all products |
 | `/products/nvidia-geforce-rtx-5080` | Full comparison view for a product |
 | `/stores` | Directory of tracked stores and sellers |
+| `/admin` | Admin dashboard |
+| `/admin/stores` | Manage stores |
+| `/admin/products` | Manage products |
+| `/admin/listings` | Manage prices and offers |
 
 ## Project structure
 
@@ -74,10 +87,10 @@ prisma/
 - [x] Seed data with RTX 5080 example
 
 ### Phase 2 — Data pipeline
-- [ ] PostgreSQL + Prisma integration
-- [ ] Admin panel to add stores and products
-- [ ] Price history tracking
-- [ ] Manual price entry for social media sellers
+- [x] PostgreSQL + Prisma integration
+- [x] Admin panel (stores, products, listings)
+- [x] Price history tracking
+- [x] Manual price entry for social media sellers
 
 ### Phase 3 — Automation
 - [ ] Website price scraping (with store permission)

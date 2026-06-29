@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
-    "db:setup": "prisma migrate deploy && prisma db seed",
+    "db:setup": "prisma migrate deploy",
+    "db:setup:local": "prisma migrate deploy && prisma db seed",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
-    "dev": "npm run db:setup && next dev",
+    "dev": "npm run db:setup:local && next dev",
     "build": "npm run db:setup && next build",
     "start": "next start",
     "lint": "eslint"
