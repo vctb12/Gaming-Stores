@@ -100,3 +100,22 @@ export async function getStoreBySlug(slug: string): Promise<Store | null> {
   if (!store) return null;
   return mapStore(store);
 }
+
+export async function getAdminStats() {
+  const [storeCount, productCount, listingCount, priceHistoryCount, inStockCount] =
+    await Promise.all([
+      prisma.store.count(),
+      prisma.product.count(),
+      prisma.listing.count(),
+      prisma.priceHistory.count(),
+      prisma.listing.count({ where: { inStock: true } }),
+    ]);
+
+  return {
+    storeCount,
+    productCount,
+    listingCount,
+    priceHistoryCount,
+    inStockCount,
+  };
+}
