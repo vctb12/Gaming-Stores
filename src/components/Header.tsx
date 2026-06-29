@@ -3,6 +3,7 @@ import Link from "next/link";
 const navLinks = [
   { href: "/products", label: "Compare Products" },
   { href: "/stores", label: "Stores" },
+  { href: "/admin", label: "Admin" },
 ];
 
 export function Header() {
