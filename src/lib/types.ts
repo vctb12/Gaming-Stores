@@ -48,6 +48,13 @@ export interface Listing {
 
 export interface ListingWithStore extends Listing {
   store: Store;
+  priceChange?: PriceChange;
+}
+
+export interface PriceChange {
+  previousPrice: number;
+  delta: number;
+  percentChange: number;
 }
 
 export interface ProductWithListings extends Product {

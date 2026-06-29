@@ -1,4 +1,5 @@
 import type { ComparisonHighlight, ListingWithStore } from "@/lib/types";
+import { formatPriceChange } from "@/lib/price-change";
 
 const sourceLabels: Record<string, string> = {
   website: "Website",
@@ -76,6 +77,16 @@ export function ListingRow({ listing, highlights, rank }: ListingRowProps) {
         <p className="text-2xl font-bold text-white">
           {listing.price.toLocaleString()} AED
         </p>
+        {listing.priceChange && (
+          <p
+            className={`text-xs font-medium ${
+              listing.priceChange.delta < 0 ? "text-emerald-400" : "text-red-400"
+            }`}
+          >
+            {formatPriceChange(listing.priceChange)} (was{" "}
+            {listing.priceChange.previousPrice.toLocaleString()})
+          </p>
+        )}
         {listing.shippingCost > 0 && (
           <p className="text-xs text-slate-500">
             +{listing.shippingCost} AED shipping

@@ -1,7 +1,55 @@
 import { PrismaClient } from "@prisma/client";
+import { daysAgo, recordPriceHistory } from "../src/lib/db/price-history";
 import { listings, products, stores } from "../src/lib/data";
 
 const prisma = new PrismaClient();
+
+const listingPriceHistory: Record<
+  string,
+  { price: number; daysAgo: number }[]
+> = {
+  "list-1": [
+    { price: 4499, daysAgo: 14 },
+    { price: 4399, daysAgo: 7 },
+    { price: 4299, daysAgo: 0 },
+  ],
+  "list-2": [
+    { price: 4250, daysAgo: 10 },
+    { price: 4200, daysAgo: 5 },
+    { price: 4150, daysAgo: 0 },
+  ],
+  "list-3": [
+    { price: 4199, daysAgo: 12 },
+    { price: 4099, daysAgo: 6 },
+    { price: 3999, daysAgo: 0 },
+  ],
+  "list-4": [
+    { price: 4599, daysAgo: 21 },
+    { price: 4549, daysAgo: 10 },
+    { price: 4499, daysAgo: 0 },
+  ],
+  "list-5": [
+    { price: 3999, daysAgo: 8 },
+    { price: 3949, daysAgo: 3 },
+    { price: 3899, daysAgo: 0 },
+  ],
+  "list-6": [
+    { price: 3299, daysAgo: 14 },
+    { price: 3199, daysAgo: 0 },
+  ],
+  "list-7": [
+    { price: 3449, daysAgo: 9 },
+    { price: 3349, daysAgo: 0 },
+  ],
+  "list-8": [
+    { price: 2899, daysAgo: 11 },
+    { price: 2799, daysAgo: 0 },
+  ],
+  "list-9": [
+    { price: 2799, daysAgo: 15 },
+    { price: 2699, daysAgo: 0 },
+  ],
+};
 
 async function main() {
   await prisma.priceHistory.deleteMany();
@@ -62,9 +110,20 @@ async function main() {
         lastUpdated: new Date(listing.lastUpdated),
       },
     });
+
+    const history = listingPriceHistory[listing.id] ?? [
+      { price: listing.price, daysAgo: 0 },
+    ];
+
+    for (const entry of history) {
+      await recordPriceHistory(listing.id, entry.price, daysAgo(entry.daysAgo));
+    }
   }
 
-  console.log(`Seeded ${stores.length} stores, ${products.length} products, ${listings.length} listings`);
+  const historyCount = await prisma.priceHistory.count();
+  console.log(
+    `Seeded ${stores.length} stores, ${products.length} products, ${listings.length} listings, ${historyCount} price history records`,
+  );
 }
 
 main()
