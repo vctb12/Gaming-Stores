@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { daysAgo, recordPriceHistory } from "../src/lib/db/price-history";
 import { listings, products, stores } from "../src/lib/data";
-
-const prisma = new PrismaClient();
+import { prisma } from "../src/lib/prisma";
 
 const listingPriceHistory: Record<
   string,
