@@ -80,29 +80,15 @@ prisma/
 
 ## Roadmap
 
-### Phase 1 — MVP (current)
-- [x] Product comparison UI
-- [x] Multi-store listing with sort modes
-- [x] Store directory
-- [x] Seed data with RTX 5080 example
+Full **20-phase plan** for Claude Code and future development: **[ROADMAP.md](./ROADMAP.md)**
 
-### Phase 2 — Data pipeline
-- [x] PostgreSQL + Prisma integration
-- [x] Admin panel (stores, products, listings)
-- [x] Price history tracking
-- [x] Manual price entry for social media sellers
+| Status | Phases |
+|--------|--------|
+| Done | 1–2: MVP, admin CRUD, Postgres, price history |
+| Next | 3: Admin auth → 4: UX polish → 5: SEO |
+| Future | 6–20: Images, categories, alerts, scraping, API, mobile |
 
-### Phase 3 — Automation
-- [ ] Website price scraping (with store permission)
-- [ ] Social media price monitoring
-- [ ] Price drop alerts
-- [ ] User accounts and saved comparisons
-
-### Phase 4 — Growth
-- [ ] Categories beyond gaming (electronics, etc.)
-- [ ] Store verification badges
-- [ ] Affiliate / referral links
-- [ ] Mobile app
+See [ROADMAP.md](./ROADMAP.md) for deliverables, acceptance criteria, and agent checklist per phase.
 
 ## Data model
 
