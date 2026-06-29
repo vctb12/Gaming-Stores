@@ -1,6 +1,6 @@
 import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
-import { searchProducts } from "@/lib/comparison";
+import { searchProducts } from "@/lib/db/queries";
 
 interface ProductsPageProps {
   searchParams: Promise<{ q?: string }>;
@@ -8,7 +8,7 @@ interface ProductsPageProps {
 
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const { q = "" } = await searchParams;
-  const products = searchProducts(q);
+  const products = await searchProducts(q);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">

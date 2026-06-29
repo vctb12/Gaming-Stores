@@ -1,11 +1,8 @@
 import { StoreCard } from "@/components/StoreCard";
-import { listings, stores } from "@/lib/data";
+import { getStoresWithListingCounts } from "@/lib/db/queries";
 
-export default function StoresPage() {
-  const storeListingCounts = stores.map((store) => ({
-    store,
-    count: listings.filter((listing) => listing.storeId === store.id).length,
-  }));
+export default async function StoresPage() {
+  const storeListingCounts = await getStoresWithListingCounts();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
